@@ -26,3 +26,23 @@ createFrame: function(settings, videoDetails){
     }
     return html;
   }
+
+
+
+$(document).ready(function() {
+    //for youtube
+  $('#play-video').on('click', function(ev) {
+ 
+    $("#video")[0].src += "&autoplay=1";
+    ev.preventDefault();
+ 
+  });
+    
+    // for vimeo
+  $('#play-video').on('click', function(ev) {
+ 
+    $("#video")[0].src += "&autoplay=true";
+    ev.preventDefault();
+ 
+  });  
+});
