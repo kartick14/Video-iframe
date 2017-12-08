@@ -41,7 +41,7 @@ $(document).ready(function() {
     }else if(targeted_video_type == 'youtube'){
       $("#video")[0].src += "&autoplay=1";
     }else{
-      $("#video").get(0).play();
+      $("#video").get(0).play();  // for html5 video
     }
     ev.preventDefault();
  
@@ -58,7 +58,7 @@ $(document).ready(function() {
     }else if(targeted_video_type == 'youtube'){
       $('#video')[0].contentWindow.postMessage('{"event":"command","func":"' + 'stopVideo' + '","args":""}', '*'); 
     }else{
-      $("#video").get(0).pause();
+      $("#video").get(0).pause();  // for html5 video
     }
     ev.preventDefault();
  
