@@ -7,7 +7,7 @@ createFrame: function(settings, videoDetails){
         var autoloop = 0;
       }
 
-      var html = '<iframe src="//www.youtube.com/embed/'+videoDetails.id+'?&autoplay=1&loop='+autoloop+'&rel=0&hd=1&showinfo=0&color=white&controls=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen ></iframe>';
+      var html = '<iframe src="//www.youtube.com/embed/'+videoDetails.id+'?&autoplay=1&loop='+autoloop+'&rel=0&hd=1&showinfo=0&color=white&controls=0&enablejsapi=1&version=3&playerapiid=ytplayer" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen ></iframe>';
     }
     else if(videoDetails.provider === 'vimeo') {
       if (settings.autoloop){
@@ -15,7 +15,7 @@ createFrame: function(settings, videoDetails){
       } else {
         var autoloop = 0;
       }
-      var html = '<iframe src="//player.vimeo.com/video/'+videoDetails.id+'?loop='+autoloop+'&amp;title=0&amp;byline=0&amp;portrait=0&amp;color=3d96d2&autoplay=1" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen ></iframe>';
+      var html = '<iframe src="//player.vimeo.com/video/'+videoDetails.id+'?loop='+autoloop+'&amp;title=0&amp;byline=0&amp;portrait=0&amp;color=3d96d2&autoplay=1&amp;api=1" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen ></iframe>';
     }
     else if(videoDetails.provider === 'html5') {
       if (settings.autoloop){
@@ -28,20 +28,38 @@ createFrame: function(settings, videoDetails){
   }
 
 
-
+// Include http://a.vimeocdn.com/js/froogaloop2.min.js for vimeo play pause functionality
 $(document).ready(function() {
     //for youtube
   $('#play-video').on('click', function(ev) {
  
-    $("#video")[0].src += "&autoplay=1";
+    var iframe = $('#video')[0];
+    var player = $f(iframe);
+
+    if(targeted_video_type == 'vimeo'){
+      player.api('play');
+    }else if(targeted_video_type == 'youtube'){
+      $("#video")[0].src += "&autoplay=1";
+    }else{
+      $("#video").get(0).play();
+    }
     ev.preventDefault();
  
   });
     
     // for vimeo
-  $('#play-video').on('click', function(ev) {
+  $('#close-video').on('click', function(ev) {
  
-    $("#video")[0].src += "&autoplay=true";
+    var iframe = $('#video')[0];
+    var player = $f(iframe);
+
+    if(targeted_video_type == 'vimeo'){
+      player.api('pause');
+    }else if(targeted_video_type == 'youtube'){
+      $('#video')[0].contentWindow.postMessage('{"event":"command","func":"' + 'stopVideo' + '","args":""}', '*'); 
+    }else{
+      $("#video").get(0).pause();
+    }
     ev.preventDefault();
  
   });  
