@@ -29,6 +29,10 @@ createFrame: function(settings, videoDetails){
 
 
 // Include http://a.vimeocdn.com/js/froogaloop2.min.js for vimeo play pause functionality
+//Please add "&enablejsapi=1&version=3&playerapiid=ytplayer" end of the youtube embed url
+/*
+<iframe id="video" width="640" height="360" src="...?rel=0&showinfo=0&enablejsapi=1&version=3&playerapiid=ytplayer" frameborder="0" allowfullscreen="true" allowscriptaccess="always"></iframe>
+*/
 $(document).ready(function() {
     //for youtube
   $('#play-video').on('click', function(ev) {
